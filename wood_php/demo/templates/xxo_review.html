@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+</style>
+<script>
+function PageOrderChange( _sOrderByValue ){
+	var oForm = document.getElementById("pageform");
+	var sOrderByValue = document.getElementById("order_by").value;
+	if( sOrderByValue == "" ){
+		document.getElementById("order").value    = 0;
+		document.getElementById("order_by").value = _sOrderByValue;
+	}	
+	else if( sOrderByValue == _sOrderByValue ){
+		document.getElementById("order").value = (document.getElementById("order").value==1?0:1);
+	}
+	else{
+		document.getElementById("order_by").value = _sOrderByValue;
+		document.getElementById("order").value    = 0;
+	}	
+	if(oForm){
+		oForm.submit();
+	}
+}
+
+function ShowOrderNow(){
+	var sOrderBy  = document.getElementById("order_by").value;
+	var sOrder    = document.getElementById("order").value;
+	var oShowSpan = document.getElementById("h_"+sOrderBy);
+	if(oShowSpan){
+		if( sOrder == 1 ){
+			oShowSpan.innerHTML = "<img src='./imgs/up.gif' width=8 height=8 />"
+		}
+		else{
+			oShowSpan.innerHTML = "<img src='./imgs/down.gif' width=8 height=8 />"
+		}
+	}
+}
+</script>
+</head><body>
+{{include file="top_banner.tpl"}}
+<iframe id="iFrame1" name="iFrame1" width="100%" onload="this.height=iFrame1.document.body.scrollHeight-30" scrolling="no" frameborder="0" src="./xxo_procd_list.php?name_key={{$NameKey}}"></iframe>
+<br /><br />
+
+<iframe id="iFrame2" name="iFrame2" width="100%" onload="this.height=iFrame2.document.body.scrollHeight-30" scrolling="no" frameborder="0" src="./xxo_config_list.php?name_key={{$NameKey}}"></iframe>
+<br /><br />
+
+<iframe id="iFrame3" name="iFrame3" width="100%" onload="this.height=iFrame3.document.body.scrollHeight-30" scrolling="no" frameborder="0" src="./xxo_service_list.php?name_key={{$NameKey}}"></iframe>
+<br /><br />
+
+<iframe id="iFrame4" name="iFrame4" width="100%" onload="this.height=iFrame4.document.body.scrollHeight-30" scrolling="no" frameborder="0" src="./xxo_con_ver_list.php?name_key={{$NameKey}}"></iframe>
+{{include file="footer.tpl"}}
+</body>
+</html>

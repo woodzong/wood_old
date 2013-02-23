@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+</style>
+<script>
+function PageOrderChange( _sOrderByValue ){
+	var oForm = document.getElementById("pageform");
+	var sOrderByValue = document.getElementById("order_by").value;
+	if( sOrderByValue == "" ){
+		document.getElementById("order").value    = 0;
+		document.getElementById("order_by").value = _sOrderByValue;
+	}	
+	else if( sOrderByValue == _sOrderByValue ){
+		document.getElementById("order").value = (document.getElementById("order").value==1?0:1);
+	}
+	else{
+		document.getElementById("order_by").value = _sOrderByValue;
+		document.getElementById("order").value    = 0;
+	}	
+	if(oForm){
+		oForm.submit();
+	}
+}
+
+function ShowOrderNow(){
+	var sOrderBy  = document.getElementById("order_by").value;
+	var sOrder    = document.getElementById("order").value;
+	var oShowSpan = document.getElementById("h_"+sOrderBy);
+	if(oShowSpan){
+		if( sOrder == 1 ){
+			oShowSpan.innerHTML = "<img src='./imgs/up.gif' width=8 height=8 />"
+		}
+		else{
+			oShowSpan.innerHTML = "<img src='./imgs/down.gif' width=8 height=8 />"
+		}
+	}
+}
+</script>
+</head><body>
+{{include file="top_banner.tpl"}}
+<table cellspacing="0" border="0" cellpadding="1" class="res_table" width="100%">
+  <tbody>
+    <tr class="order">
+      <td class="content_head"><a href="javascript:PageOrderChange('Name')" title="ÇÐ»»NameÅÅÐò">Ãû³Æ</a><span id="h_Name"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('IP')" title="ÇÐ»»IPÅÅÐò">IP</a><span id="h_IP"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('LogNo')" title="ÇÐ»»LogNoÅÅÐò">ÒÑ¹ØLog</a><span id="h_LogNo"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('OrgPath')" title="ÇÐ»»OrgPathÅÅÐò">OrgPath</a><span id="h_OrgPath"> </span></td>
+    </tr>
+  {{foreach name=outer item=ResInfo from=$ResInfoList}}
+  <tr>
+    <td class="content">{{$ResInfo.Name}}</td>
+    <td class="content">{{$ResInfo.IP}}</td>
+    <td class="content">{{$ResInfo.LogNo}}</td>
+    <td class="content">{{$ResInfo.OrgPath}}</td>   
+  </tr>
+  {{/foreach}}
+  </tbody>
+  
+</table>
+<form action="./xxo_no_log_list.php" method="get" id="pageform" >
+  <input type="hidden"  name="order" id="order" value="{{$OrderType}}"/>
+  <input type="hidden"  name="order_by" id="order_by" value="{{$OrderBy}}"/>
+  <input type="hidden"  name="name_key" id="name_key" value="{{$NameKey}}"/>
+  <input type="hidden"  name="ip_key" id="ip_key" value="{{$IpKey}}"/>
+</form>
+<script>ShowOrderNow();</script>
+{{include file="footer.tpl"}}
+</body>
+</html>

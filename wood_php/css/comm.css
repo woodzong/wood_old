@@ -1,0 +1,141 @@
+/* CSS Document */
+body{
+	margin-left: 6px;
+	margin-top: 2px;
+	margin-right:6px;
+	margin-bottom:2px;
+}
+
+.res_table{
+	font-size:12px;
+	border-collapse:collapse;
+	border:1px solid #CCCCCC;
+}
+
+.user_add_table tr{
+	background-color:expression(rowIndex%2?'#F1F1F1':'#FFFFFF');
+}
+
+.res_table .lable{ text-align:right; background-color:#ECECEC; height:35px; border-bottom:#CCCCCC solid 1px; padding:4px; }
+.res_table .content{ border-bottom:#CCCCCC solid 1px; padding:4px; }
+.res_table .content_head{ border-bottom:#CCCCCC solid 1px; padding:4px;background-color:#EAF3FF; font-weight:bold; }
+.res_table .title{ background-color:#EAF3FF; font-weight:bold; height:16px;border-bottom:#CCCCCC solid 1px; padding:6px; color:#333333;}
+
+.res_table input{
+	border:#999999 solid 1px;
+	width:200px;
+}
+
+.res_table .date{
+	width:30px;
+}
+
+.res_table .day{
+	width:15px;
+}
+
+.res_table .file{
+	width:400px;
+}
+
+.res_table .radio{
+	border:none;
+	width:20px;
+}
+
+.res_table textarea{
+	border:#999999 solid 1px;
+}
+
+.res_table .submitbutton{
+	height:24px;
+}
+
+.page{
+	padding:4px;
+	text-align:right;
+}
+
+.page .button{
+	width:50px;
+}
+
+.page .curinput{
+	width:20px;
+}
+
+.order a{
+	text-decoration:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.menu_table {
+	border:1px solid #CCCCCC;
+}
+
+.menu_table td{
+	height:26px;
+	padding-left:14px;
+}
+
+.menu_table .title{
+	height:24px; 
+	background-color:#E0E0E0;
+	font-weight:bold;
+	padding-left:6px;
+}
+
+.menu_table a{
+	text-decoration:none;
+	color:#0000FF;
+}
+
+.menu_table a:hover{
+	text-decoration:underline;
+	color:#FF0000;
+}
+
+.menu_table a:visited{
+}
+
+
+
+
+
+
+

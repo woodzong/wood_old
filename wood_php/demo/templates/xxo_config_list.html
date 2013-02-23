@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+</style>
+<script>
+function PageOrderChange( _sOrderByValue ){
+	var oForm = document.getElementById("pageform");
+	var sOrderByValue = document.getElementById("order_by").value;
+	if( sOrderByValue == "" ){
+		document.getElementById("order").value    = 0;
+		document.getElementById("order_by").value = _sOrderByValue;
+	}	
+	else if( sOrderByValue == _sOrderByValue ){
+		document.getElementById("order").value = (document.getElementById("order").value==1?0:1);
+	}
+	else{
+		document.getElementById("order_by").value = _sOrderByValue;
+		document.getElementById("order").value    = 0;
+	}	
+	if(oForm){
+		oForm.submit();
+	}
+}
+
+function ShowOrderNow(){
+	var sOrderBy  = document.getElementById("order_by").value;
+	var sOrder    = document.getElementById("order").value;
+	var oShowSpan = document.getElementById("h_"+sOrderBy);
+	if(oShowSpan){
+		if( sOrder == 1 ){
+			oShowSpan.innerHTML = "<img src='./imgs/up.gif' width=8 height=8 />"
+		}
+		else{
+			oShowSpan.innerHTML = "<img src='./imgs/down.gif' width=8 height=8 />"
+		}
+	}
+}
+</script>
+</head><body>
+{{include file="top_banner.tpl"}}
+<table cellspacing="0" border="0" cellpadding="1" class="res_table" width="100%">
+  <tbody>
+    <tr class="order">
+      <td class="content_head"><a href="javascript:PageOrderChange('Name')" title="«–ªªΩ¯≥Ã√˚≥∆≈≈–Ú">Ω¯≥Ã√˚≥∆</a><span id="h_Name"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('GroupId')" title="«–ªªGroupId≈≈–Ú">GroupId</a><span id="h_GroupId"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('IP')" title="«–ªªIP≈≈–Ú">IP</a><span id="h_IP"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('PkgReqAttrId')" title="«–ªªPkgReqAttrId≈≈–Ú">«Î«ÛITIL</a><span id="h_PkgReqAttrId"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('PkgRespAttrId')" title="«–ªªPkgRespAttrId≈≈–Ú">∑µªÿITIL</a><span id="h_PkgRespAttrId"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('ErrPkgRespAttrId')" title="«–ªªErrPkgRespAttrId≈≈–Ú">¥ÌŒÛITIL</a><span id="h_ErrPkgRespAttrId"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('RestartItilId')" title="«–ªªRestartItilId≈≈–Ú">÷ÿ∆ÙITIL</a><span id="h_RestartItilId"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('PthUCtxSize')" title="«–ªªPthUCtxSize≈≈–Ú">PthUCtxSize</a><span id="h_PthUCtxSize"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('MaxCocurrNum')" title="«–ªªMaxCocurrNum≈≈–Ú"> Session ˝ </a><span id="h_MaxCocurrNum"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('SessTimeoutSec')" title="«–ªªSessTimeoutSec≈≈–Ú">≥¨ ±…Ë÷√</a><span id="h_SessTimeoutSec"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('RemotePerform')" title="«–ªªRemotePerform≈≈–Ú">Õ≥“ª–‘ƒ‹Log</a><span id="h_RemotePerform"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('DebugSupport')" title="«–ªªDebugSupport≈≈–Ú">DebugSupport</a><span id="h_DebugSupport"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('AuthCheck')" title="«–ªªAuthCheck≈≈–Ú">”√ªß…Ì∑›–£—È</a><span id="h_AuthCheck"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('FileUpdateTime')" title="«–ªªFileUpdateTime≈≈–Ú">≈‰÷√Œƒº˛◊Ó∫Û∏¸–¬</a><span id="h_FileUpdateTime"> </span></td>
+    </tr>
+  {{foreach name=outer item=ResInfo from=$ResInfoList}}
+  <tr>
+    <td class="content">{{$ResInfo.Name}}</td>
+    <td class="content">{{$ResInfo.GroupId|string_format:"0x%x"}}</td>
+    <td class="content">{{$ResInfo.IP}}</td>
+    <td class="content">{{$ResInfo.PkgReqAttrId}}</td>
+    <td class="content">{{$ResInfo.PkgRespAttrId}}</td>
+    <td class="content">{{$ResInfo.ErrPkgRespAttrId}}</td>
+    <td class="content">{{$ResInfo.RestartItilId}}</td>
+    <td class="content">{{$ResInfo.PthUCtxSize}}</td>
+    <td class="content">{{$ResInfo.MaxCocurrNum}}</td>
+    <td class="content">{{$ResInfo.SessTimeoutSec}}</td>
+    <td class="content">{{$ResInfo.RemotePerform}}</td>
+    <td class="content">{{$ResInfo.DebugSupport}}</td>
+    <td class="content">{{$ResInfo.AuthCheck}}</td>
+    <td class="content">{{$ResInfo.FileUpdateTime}}</td>
+  </tr>
+  {{/foreach}}
+  </tbody>
+  
+</table>
+<form action="./xxo_config_list.php" method="get" id="pageform" >
+  <input type="hidden"  name="order" id="order" value="{{$OrderType}}"/>
+  <input type="hidden"  name="order_by" id="order_by" value="{{$OrderBy}}"/>
+  <input type="hidden"  name="name_key" id="name_key" value="{{$NameKey}}"/>
+  <input type="hidden"  name="ip_key" id="ip_key" value="{{$IpKey}}"/>
+  <input type="hidden"  name="groupid_key" id="groupid_key" value="{{$GroupIdKey}}"/>
+</form>
+<script>ShowOrderNow();</script>
+{{include file="footer.tpl"}}
+</body>
+</html>

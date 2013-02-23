@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+</style>
+<script>
+function PageOrderChange( _sOrderByValue ){
+	var oForm = document.getElementById("pageform");
+	var sOrderByValue = document.getElementById("order_by").value;
+	if( sOrderByValue == "" ){
+		document.getElementById("order").value    = 0;
+		document.getElementById("order_by").value = _sOrderByValue;
+	}	
+	else if( sOrderByValue == _sOrderByValue ){
+		document.getElementById("order").value = (document.getElementById("order").value==1?0:1);
+	}
+	else{
+		document.getElementById("order_by").value = _sOrderByValue;
+		document.getElementById("order").value    = 0;
+	}	
+	if(oForm){
+		oForm.submit();
+	}
+}
+
+function ShowOrderNow(){
+	var sOrderBy  = document.getElementById("order_by").value;
+	var sOrder    = document.getElementById("order").value;
+	var oShowSpan = document.getElementById("h_"+sOrderBy);
+	if(oShowSpan){
+		if( sOrder == 1 ){
+			oShowSpan.innerHTML = "<img src='./imgs/up.gif' width=8 height=8 />"
+		}
+		else{
+			oShowSpan.innerHTML = "<img src='./imgs/down.gif' width=8 height=8 />"
+		}
+	}
+}
+</script>
+</head><body>
+{{include file="top_banner.tpl"}}
+<table cellspacing="0" border="0" cellpadding="1" class="res_table" width="100%">
+  <tbody>
+    <tr class="order">      
+      <td class="content_head"><a href="javascript:PageOrderChange('NAME')" title="切换进程名称排序">进程名称</a><span id="h_NAME"> </span></td>
+      <td class="content_head">IP</td>
+      <td class="content_head"><a href="javascript:PageOrderChange('START')" title="切换进程启动时间排序">启动时间</a><span id="h_START"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('VSZ')" title="切换进程VSZ排序">VSZ(M)</a><span id="h_VSZ"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('RSS')" title="切换进程RSS排序">RSS(M)</a><span id="h_RSS"> </span></td>
+      <td class="content_head">MEM</td>
+      <td class="content_head">CPU</td>
+      <td class="content_head">TIME</td>
+    </tr>
+  {{foreach name=outer item=ResInfo from=$ResInfoList}}
+  <tr>
+    <td class="content">{{$ResInfo.NAME}}</td>
+    <td class="content">{{$ResInfo.IP}}</td>
+    <td class="content">{{$ResInfo.START}}</td>   
+    <td class="content">{{$ResInfo.VSZ/1000|string_format:"%.2f"}}</td>
+    <td class="content">{{$ResInfo.RSS/1000|string_format:"%.2f"}}</td>   
+    <td class="content">{{$ResInfo.MEM}}</td>
+    <td class="content">{{$ResInfo.CPU}}</td>
+    <td class="content">{{$ResInfo.TIME}}</td>      
+  </tr>
+  {{/foreach}}
+  </tbody>  
+</table>
+<form action="./xxo_procd_list.php" method="get" id="pageform" >
+    <input type="hidden"  name="order" id="order" value="{{$OrderType}}"/>
+    <input type="hidden"  name="order_by" id="order_by" value="{{$OrderBy}}"/>
+    <input type="hidden"  name="name_key" id="name_key" value="{{$NameKey}}"/>
+    <input type="hidden"  name="ip_key" id="ip_key" value="{{$IpKey}}"/>
+</form>
+<script>ShowOrderNow();</script>
+{{include file="footer.tpl"}}
+</body>
+</html>

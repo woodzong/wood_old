@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+</style>
+<script>
+function PageOrderChange( _sOrderByValue ){
+	var oForm = document.getElementById("pageform");
+	var sOrderByValue = document.getElementById("order_by").value;
+	if( sOrderByValue == "" ){
+		document.getElementById("order").value    = 0;
+		document.getElementById("order_by").value = _sOrderByValue;
+	}	
+	else if( sOrderByValue == _sOrderByValue ){
+		document.getElementById("order").value = (document.getElementById("order").value==1?0:1);
+	}
+	else{
+		document.getElementById("order_by").value = _sOrderByValue;
+		document.getElementById("order").value    = 0;
+	}	
+	if(oForm){
+		oForm.submit();
+	}
+}
+
+function ShowOrderNow(){
+	var sOrderBy  = document.getElementById("order_by").value;
+	var sOrder    = document.getElementById("order").value;
+	var oShowSpan = document.getElementById("h_"+sOrderBy);
+	if(oShowSpan){
+		if( sOrder == 1 ){
+			oShowSpan.innerHTML = "<img src='./imgs/up.gif' width=8 height=8 />"
+		}
+		else{
+			oShowSpan.innerHTML = "<img src='./imgs/down.gif' width=8 height=8 />"
+		}
+	}
+}
+</script>
+</head><body>
+{{include file="top_banner.tpl"}}
+<table cellspacing="0" border="0" cellpadding="1" class="res_table" width="100%">
+  <tbody>
+    <tr class="order">
+      <td class="content_head"><a href="javascript:PageOrderChange('IP')" title="ÇÐ»»IPÅÅÐò">IP</a><span id="h_IP"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('Filesystem')" title="ÇÐ»»FilesystemÅÅÐò">Filesystem</a><span id="h_Filesystem"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('Blocks')" title="ÇÐ»»BlocksÅÅÐò">Blocks</a><span id="h_Blocks"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('Used')" title="ÇÐ»»UsedBlocksÅÅÐò">UsedBlocks</a><span id="h_Used"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('Available')" title="ÇÐ»»AvailableÅÅÐò">Available</a><span id="h_Available"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('UsePre')" title="ÇÐ»»UsePreÅÅÐò">UsePre</a><span id="h_UsePre"> </span></td>
+      <td class="content_head"><a href="javascript:PageOrderChange('Mounted')" title="ÇÐ»»MountedÅÅÐò">Mounted</a><span id="h_Mounted"> </span></td>
+    </tr>
+  {{foreach name=outer item=ResInfo from=$ResInfoList}}
+  <tr>  
+    <td class="content">{{$ResInfo.IP}}</td>
+    <td class="content">{{$ResInfo.Filesystem}}</td>
+    <td class="content">{{$ResInfo.Blocks}}</td>
+    <td class="content">{{$ResInfo.Used}}</td>
+    <td class="content">{{$ResInfo.Available}}</td>    
+    <td class="content">{{$ResInfo.UsePre|string_format:"%d%%"}}</td>
+    <td class="content">{{$ResInfo.Mounted}}</td>
+  </tr>
+  {{/foreach}}
+  </tbody>
+  
+</table>
+<form action="./xxo_df_list.php" method="get" id="pageform" >
+  <input type="hidden"  name="order" id="order" value="{{$OrderType}}"/>
+  <input type="hidden"  name="order_by" id="order_by" value="{{$OrderBy}}"/>
+  <input type="hidden"  name="ip_key" id="ip_key" value="{{$IpKey}}"/>
+</form>
+<script>ShowOrderNow();</script>
+{{include file="footer.tpl"}}
+</body>
+</html>

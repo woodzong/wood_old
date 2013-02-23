@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{{include file="header.tpl"}}
+<style>
+@import url("./css/comm.css");
+.xxo_div{
+	padding:6px;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:15px;
+	border:1px solid #C2C9D2;
+	background-color:#EFF1F4;
+	margin-top:10px;
+	line-height:150%;
+}
+
+.xxo_div a{
+	text-decoration:none;
+	color:#6E717D;
+}
+
+.xxo_div a:hover{
+	text-decoration:underline;
+}
+
+.mac_div{
+	padding:6px;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:15px;
+	border:1px solid #A9E643;
+	background-color:#EEFAD8;
+	margin-top:10px;
+	line-height:150%;
+}
+
+.mac_div a{
+	text-decoration:none;
+	color:#659004;
+}
+
+.mac_div a:hover{
+	text-decoration:underline;
+}
+
+
+.hint{
+	font-size:12px; color:#330; font-weight:normal;
+}
+
+.legend_xxo {
+    background:#CCC;
+	font-weight:bold;
+	border:#999 1px solid;
+	padding:6px;
+	font-size:14px;
+}
+
+.legend_mac {
+    background:#C0E945;
+	font-weight:bold;
+	border:#659004 1px solid;
+	padding:6px;
+	font-size:14px;
+	color:#659004;
+}
+
+</style>
+</head><body>
+{{include file="top_banner.tpl"}}
+
+<fieldset style="border:#C2C9D2 1px solid; padding:12px;"><legend class="legend_xxo">检视XXO</legend>
+<div class="xxo_div"><a href="./xxo_procd_list.php" target="_blank"> 看正在跑的XXO -> 按某条件排序 -> 检视问题</a><br />
+<span class="hint"> 检视要点:CPU 占用过大; 漏配置了某台机器; CPU,MEM,VSZ或RSS占用过大; 很久没有重启; 发现废弃部署的xxo等;</span></div>
+
+<div class="xxo_div"><a href="./xxo_config_list.php" target="_blank"> 看XXO cont_config 配置 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点: 请求/返回/错误ITIL没有配置; pthsize 过大; RestartItil,AuthcCheck没有配置; 配置文件更新日期很古老; session数和超时值设置不合理; 没有配置新的统一log等.</span></div>
+
+<div class="xxo_div"><a href="./xxo_service_list.php" target="_blank"> 看XXO ServiceConfig 配置 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点: 设置的Size值不合理, 统一取其msgq与堵塞监控比较检查, 废弃的远程xxo的配置要注意及时清理(msgq为0).</span></div>
+
+<div class="xxo_div"><a href="./xxo_con_ver_list.php" target="_blank"> 看XXO container 版本 -> 按某条件排序 -> 检视问题  </a><br />
+<span class="hint"> 检视要点: container 版本号过老或者没有按规范用link来部署</span></div>
+
+<div class="xxo_div"><a href="./xxo_no_log_list.php" target="_blank"> 看XXO log 的关闭状态 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点:所有业务进程要关闭debug log, 繁忙的业务要关闭run log, 最繁忙业务的perform log 也要关闭</span></div>
+
+<div class="xxo_div"><a href="./xxo_procd_list_g.php" target="_blank"> 看正在跑的XXO -> 操作检视某个xxo -> 检视问题</a><br />
+<span class="hint"> 检视要点:整个xxo全方位的体检 </span></div>
+</fieldset>
+<br />
+
+
+<fieldset style="border:#A9E643 1px solid; padding:12px;"><legend class="legend_mac">检视机器</legend>
+
+<div class="mac_div"><a href="./xxo_shm_list.php" target="_blank"> 看全部机器上的SHM状态 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点:key 为空的死SHM, attach 数为0的废弃shm等</span></div>
+
+<div class="mac_div"><a href="./xxo_msgq_list.php" target="_blank"> 看全部机器上的Msgq状态 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点:key 为空的死msgq, 堵塞数过大的废弃msgq等</span></div>
+
+<div class="mac_div"><a href="./xxo_top_list.php" target="_blank"> 看全部机器上的TOP状态 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点:mem剩余过少,swap 剩余过少, 机器很久没有重启, 僵死的进程有很多, 同时并发的任务数有很多.</span></div>
+
+<div class="mac_div"><a href="./xxo_df_list.php" target="_blank"> 看全部机器上的硬盘状态 -> 按某条件排序 -> 检视问题 </a><br />
+<span class="hint"> 检视要点:硬盘分区空间剩余过少</span></div>
+
+</fieldset>
+
+{{include file="footer.tpl"}}
+</body>
+</html>
